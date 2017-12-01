@@ -1,4 +1,184 @@
-{extend name="public/base" /}
-{block name="main"}
-{include file="admin/list_ajax"}
-{/block}
+<div class="breadcrumbs " id="breadcrumbs" style="margin-bottom:10px;">
+    <ul class="breadcrumb" style="margin-bottom: 0;padding-bottom: 0">
+        <li CLASS="active">
+            管理员管理
+        </li>
+    </ul>
+</div>
+
+<button class="btn btn-primary btn-large" data-toggle="modal" data-target="#myModal">
+    <!--<a style="color: white;text-decoration-line: none"-->
+    <!--href="#{:url('admin/add')}" >添加</a>-->
+    添加
+</button>
+<button class="btn btn-danger btn-large">
+    删除
+</button>
+
+<table class="table table-responsive table-bordered table-hover">
+    <thead>
+    <tr class="active">
+        <th class="center">
+            <label class="position-relative">
+                <input type="checkbox" class="ace"/>
+                <span class="lbl"></span>
+            </label>
+        </th>
+        <th>ID</th>
+        <th>管理员用户名</th>
+        <th class="hidden-480">用户组</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="item"}
+    <tr class="active">
+        <td class="center" style="width: 5%">
+            <label class="position-relative">
+                <input type="checkbox" class="ace"/>
+                <span class="lbl"></span>
+            </label>
+        </td>
+
+        <td style="width: 10%">{$item.user_id}</td>
+        <td class="hidden-480">{$item.username}</td>
+        <td class="hidden-480">{$item.group_title}</td>
+
+        <td style="width: 20%">
+            <div class="hidden-sm hidden-xs btn-group">
+
+                <button class="btn btn-xs btn-info">
+                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                </button>
+
+                <button class="btn btn-xs btn-danger">
+                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                </button>
+
+            </div>
+
+            <div class="hidden-md hidden-lg">
+                <div class="inline position-relative">
+                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"
+                            data-position="auto">
+                        <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                        <li>
+                            <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+									<span class="blue">
+                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
+                                    </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+									<span class="green">
+                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                    </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                <span class="red">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+
+<!--add 弹窗-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    添加管理员
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" autocomplete="off" role="form" method="post" action="{:url('admin/add')}">
+                    <!-- #section:elements.form -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">所属用户组</label>
+                        <div class="col-sm-6">
+                            <select name="group_id" id="group_id">
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">管理员名称 </label>
+                        <div class="col-sm-6">
+                            <input type="text" autocomplete="off" style="width: 100%" name="username"
+                                   id="auth_group_title"
+                                   placeholder="管理员名称"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="pwd">管理员密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" autocomplete="new-password" style="width: 100%" name="password"
+                                   id="pwd"
+                                   placeholder="管理员密码"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <div class="col-sm-6">
+                            <input value="添加" type="submit" class="btn btn-large btn-primary radius-4"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    添加
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $(function () {
+        $('#myModal').modal('hide')
+    });
+</script>
+<script>
+    $(function () {
+        $('#myModal').on('show.bs.modal', function () {
+            $.ajax({
+                url: "{:url('admin/add')}",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function () {
+
+                }
+            });
+        });
+    });
+
+
+</script>

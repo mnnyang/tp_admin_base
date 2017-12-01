@@ -1,0 +1,64 @@
+<button class="btn btn-primary btn-large">
+    <a style="color: white;text-decoration-line: none"
+       href="#{:url('auth_rule/add')}">添加</a>
+</button>
+<button class="btn btn-danger btn-large">
+    删除
+</button>
+<table class="table table-responsive table-bordered table-hover">
+    <thead>
+    <tr class="active">
+        <th class="center">
+            <label class="position-relative">
+                <input type="checkbox" class="ace"/>
+                <span class="lbl"></span>
+            </label>
+        </th>
+        <th>ID</th>
+        <th>排序</th>
+        <th>权限名称</th>
+        <th>控方</th>
+        <th>级别</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="item"}
+    <tr class="active">
+        <td class="center" style="width: 5%">
+            <label class="position-relative">
+                <input type="checkbox" class="ace"/>
+                <span class="lbl"></span>
+            </label>
+        </td>
+
+        <td  style="width: 10%">{$item.id}</td>
+        <td class="hidden-480">{$item.sort}</td>
+        <td class="hidden-480"><?php if($item['level']!=0){echo '|';}
+                        echo str_repeat('－',$item['level']);?>
+            {$item.title}
+        </td>
+        <td class="hidden-480">{$item.name}</td>
+
+        <td class="hidden-480">{$item.level+1}级别</td>
+
+        <td style="width: 20%">
+            <div class="hidden-sm hidden-xs btn-group">
+                <button class="btn btn-xs btn-info">
+                    <a href="#{:url('auth_rule/edit',array('id'=>$item.id))}">
+                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                    </a>
+                </button>
+
+                <button class="btn btn-xs btn-danger">
+                    <a href="javascript:delConfirm('{:url('auth_rule/del',array('id'=>$item.id))}')">
+                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                    </a>
+                </button>
+
+            </div>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>

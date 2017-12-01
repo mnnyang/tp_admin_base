@@ -1,0 +1,52 @@
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li CLASS="active">
+            <a href="#{:url('auth_rule/lst')}">权限管理</a>
+        </li>
+
+        <li CLASS="active">
+            编辑权限
+        </li>
+    </ul><!-- .breadcrumb -->
+</div>
+
+            <form class="form-horizontal" role="form" method="post" action="{:url('auth_rule/edit')}">
+                <!-- #section:elements.form -->
+                <input name="id" type="hidden" value="{$editItem['id']}">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="pid">上级权限</label>
+                    <div class="col-sm-9">
+                        <select name="pid" id="pid">
+                            <option value="0">顶级权限</option>
+                            {volist name="list" id="item"}
+                            <?php if($item['id']!=$editItem['id']){?>
+                            <option value="{$item.id}" <?php if($item['id']==$editItem['pid'])echo 'selected';?>>
+                            <?php echo str_repeat('－',$item['level']);?>
+                            {$item.title}</option>
+                            <?php }?>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">权限名称 </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="title" id="auth_group_title" placeholder="权限名称"
+                               value="{$editItem['title']}" class="col-xs-10 col-sm-5"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">控/方</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" placeholder="控/方"
+                               value="{$editItem['name']}" class="col-xs-10 col-sm-5"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    <div class="col-sm-9">
+                        <input value="修改" type="submit" class="btn btn-large btn-primary radius-4"/>
+                    </div>
+                </div>
+            </form>

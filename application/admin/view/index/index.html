@@ -1,4 +1,217 @@
-{extend name="public/base" /}
-{block name="main"}
-{include file="index/index_ajax"}
-{/block}
+<!DOCTYPE html>
+<!--[if IE 9]>
+<html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>admin</title>
+    <meta name="description" content="">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="__ADMIN__/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="__ADMIN__/css/main.css">
+</head>
+
+<?php
+    use auth\Auth;
+    $auth = new Auth();
+?>
+<body>
+<div id="page-wrapper" class="page-loading">
+    <div class="preloader">
+        <div class="inner">
+            <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+            <h3 class="text-primary visible-lt-ie10"><strong>加载中..</strong></h3>
+        </div>
+    </div>
+    <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+        <div id="sidebar">
+            <div id="sidebar-brand" class="themed-background">
+                <a href="#" class="sidebar-title">
+                    <i class="fa fa-home"></i>
+                    <span class="sidebar-nav-mini-hide">后台管理系统<small>
+                        {$Think.server.http_host}
+                    </small></span>
+                </a>
+            </div>
+            <div id="sidebar-scroll">
+                <div class="sidebar-content">
+                    <ul class="sidebar-nav">
+                        <?php if($auth->check('admin/lst',session('uid'))){ ?>
+                        <li>
+                            <a href="#{:url('admin/lst')}">
+                                <i class="fa fa-home sidebar-nav-icon"></i>
+                                <span class="sidebar-nav-mini-hide">管理员管理</span>
+                            </a>
+                        </li>
+                        <?php }?>
+
+                        <?php if($auth->check('auth_rule',session('uid')) ||
+                        $auth->check('auth_group',session('uid'))){?>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu">
+                                <i class="fa fa-chevron-right sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                <i class="fa fa-gift sidebar-nav-icon"></i>
+                                <span class="sidebar-nav-mini-hide">权限系统</span>
+                            </a>
+                            <ul>
+                                <?php if($auth->check('auth_group/lst',session('uid'))){?>
+                                <li>
+                                    <a href="#{:url('auth_group/lst')}">用户组管理</a>
+                                </li>
+                                <?php }?>
+                                <?php if($auth->check('auth_rule/lst',session('uid'))){?>
+                                <li>
+                                    <a href="#{:url('auth_rule/lst')}">规则管理</a>
+                                </li>
+                                <?php }?>
+                            </ul>
+                        </li>
+                        <?php }?>
+                    </ul>
+                    <!-- END Sidebar Navigation -->
+                </div>
+            </div>
+        </div>
+        <div id="main-container">
+            <header class="navbar navbar-inverse navbar-fixed-top">
+                <ul class="nav navbar-nav-custom">
+                    <li>
+                        <a href="javascript:void(0)" onclick="Tool.sidebar('toggle-sidebar');this.blur();">
+                            <i class="fa fa-reorder animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                            <i class="fa fa-reorder animation-fadeInRight" id="sidebar-toggle-full"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav-custom pull-right">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="__ADMIN__/img/normal.png"
+                                 alt="avatar">
+                            <span>欢迎光临, {$Think.session.username}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a data-toggle="modal" data-target="#pwdModal">
+                                    <i class="fa fa-pencil fa-fw pull-right"></i>
+                                    个人资料
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('login/logout')}">
+                                    <i class="fa fa-off fa-fw pull-right"></i>
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </header>
+            <div id="page-content">
+                <h1>首页</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--update pwd-->
+<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改密码
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" autocomplete="off" role="form" method="post" action="#">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">旧密码</label>
+                        <div class="col-sm-6">
+                            <input type="text" autocomplete="off" style="width: 100%" name="old_pwd"
+                                   id="auth_group_title"
+                                   placeholder="请输入密码"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">新密码</label>
+                        <div class="col-sm-6">
+                            <input type="text" autocomplete="off" style="width: 100%" name="new_pwd"
+                                   id="new_pwd"
+                                   placeholder="请输入密码"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">确认密码</label>
+                        <div class="col-sm-6">
+                            <input type="text" autocomplete="off" style="width: 100%" name="c_pwd"
+                                   id="c_pwd"
+                                   placeholder="请输入密码"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    修改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script src="__ADMIN__/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="__ADMIN__/js/vendor/jquery.hashchange.js"></script>
+<script src="__ADMIN__/js/vendor/bootstrap.min.js"></script>
+<script src="__ADMIN__/js/plugins.js"></script>
+<script src="__ADMIN__/js/tool.js"></script>
+
+
+<script>
+    $(function () {
+        $('#pwdModal').modal('hide')
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        // Bind the event.
+        $(window).hashchange(function () {
+            console.log('hashchange');
+            console.log("hash" + location.hash);
+
+            if (!location.hash || location.hash == "") {
+                initHomePage();
+                return;
+            }
+            //use jquery ajax err, so..
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    $("#page-content").html(xhr.responseText);
+                }
+            };
+            var action = location.hash.replace('#', "");
+            console.log(action);
+            xhr.open("get", action);
+            xhr.send();
+        });
+
+        $(window).trigger("hashchange");
+    });
+
+    function initHomePage() {
+        window.location = "#{:url('admin/lst')}";
+    }
+</script>
+</body>
+</html>

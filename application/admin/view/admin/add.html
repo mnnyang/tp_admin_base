@@ -1,0 +1,50 @@
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb" style="margin-bottom: 0;padding-bottom: 0">
+        <li CLASS="active">
+            <a href="#{:url('admin/lst')}">管理员管理</a>
+        </li>
+
+        <li CLASS="active">
+            添加管理员
+        </li>
+    </ul>
+</div>
+
+<form class="form-horizontal" autocomplete="off" role="form" method="post" action="{:url('admin/add')}">
+    <!-- #section:elements.form -->
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right">所属用户组</label>
+        <div class="col-sm-6">
+            <select name="group_id">
+                {volist name="list" id="item"}
+                <option value="{$item.id}">{$item.title}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="auth_group_title">管理员名称 </label>
+        <div class="col-sm-6">
+            <input type="text" autocomplete="off" style="width: 100%" name="username" id="auth_group_title"
+                   placeholder="管理员名称"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="pwd">管理员密码</label>
+        <div class="col-sm-6">
+            <input type="password" autocomplete="new-password" style="width: 100%" name="password" id="pwd"
+                   placeholder="管理员密码"/>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right"></label>
+        <div class="col-sm-6">
+            <input value="添加" type="submit" class="btn btn-large btn-primary radius-4"/>
+        </div>
+    </div>
+</form>
+
