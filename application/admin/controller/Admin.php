@@ -62,9 +62,8 @@ class Admin extends Common {
 
         $list = ($list === null) ? array() : $list;
 
-        return json($list);
-//        $this->assign('list', $list);
-//
-//        return $this->fetch();
+//        return json($list);
+        $this->assign('list', $list);
+        return $this->fetch();
     }
 }
