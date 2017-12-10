@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+body, h1, h2, h3, ul, p, figure, img {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ddd;
+    font-family: "AR PL UKai HK", serif;
+}
+
+ul {
+    list-style: outside none none; /*去掉小圆点*/
+}
+
+#page .div-register {
+    width: 400px;
+    margin: 100px auto;
+    background-color: white;
+    font-size: 16px;
+    padding: 30px 40px;
+}
+
+#page .register {
+    font-size: 26px;
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    font-family: 文泉驿等宽微米黑, serif;
+    text-align: center;
+    border-bottom: 1px dashed #dddddd;
+}
+
+#page .register-from {
+    margin-top: 25px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+    -webkit-text-fill-color: #333;
+}
+
+.register-from .register-item {
+    padding: 2px 8px;
+    border: 1px solid #dedede;
+    margin-top: 10px;
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+.register-radio {
+    padding: 0 12px;
+}
+
+.register-2-login {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.register-2-login span {
+    color: #000;
+}
+
+.register-item .register_input {
+    height: 45px;
+    line-height: 45px;
+    border: none;
+    width: 250px;
+    font-size: 20px;
+    outline: none;
+    background-color: white;
+}
+
+.register-item .register_input::-webkit-input-placeholder { /* WebKit browsers */
+    font-size: 14px;
+}
+
+.register-item .register_input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-size: 14px;
+}
+
+.register-item .register_input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-size: 14px;
+}
+
+.register-item .register_input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-size: 14px;
+}
+
+.register-from .register-sub {
+    text-align: center;
+}
+
+.register-from .register-sub input {
+    margin-top: 30px;
+    background: #777;
+    line-height: 40px;
+    width: 100%;
+    color: #FFFFFF;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
