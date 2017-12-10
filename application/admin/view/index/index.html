@@ -55,19 +55,22 @@
                             <a href="#" class="sidebar-nav-menu">
                                 <i class="fa fa-chevron-right sidebar-nav-indicator sidebar-nav-mini-hide"></i>
                                 <i class="fa fa-gift sidebar-nav-icon"></i>
-                                <span class="sidebar-nav-mini-hide">权限系统</span>
+                                <span class="sidebar-nav-mini-hide">管理员系统</span>
                             </a>
                             <ul>
                                 <?php if($auth->check('auth_group/lst',session('uid'))){?>
                                 <li>
-                                    <a href="#{:url('auth_group/lst')}">用户组管理</a>
+                                    <a href="#{:url('auth_group/lst')}">角色管理</a>
                                 </li>
                                 <?php }?>
                                 <?php if($auth->check('auth_rule/lst',session('uid'))){?>
                                 <li>
-                                    <a href="#{:url('auth_rule/lst')}">规则管理</a>
+                                    <a href="#{:url('auth_rule/lst')}">模块管理</a>
                                 </li>
                                 <?php }?>
+                                <li>
+                                    <a href="#{:url('auth_rule/lst')}">菜单管理</a>
+                                </li>
                             </ul>
                         </li>
                         <?php }?>

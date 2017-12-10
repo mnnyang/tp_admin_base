@@ -37,6 +37,7 @@ class AuthRule extends Model {
         if ($result === false) {
             return false;
         }
+
         return $this->where('id', $id)->delete();
     }
 
